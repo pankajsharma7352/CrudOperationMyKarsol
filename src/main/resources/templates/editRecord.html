@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Record</title>
+</head>
+<body>
+    <h2>Edit Record</h2>
+    <form th:action="@{/records}" th:object="${record}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}" />
+        <label for="title">Title:</label>
+        <input type="text" id="title" th:field="*{title}" />
+        <br/>
+        <label for="description">Description:</label>
+        <textarea id="description" th:field="*{description}"></textarea>
+        <br/>
+        <label for="publishDate">Publish Date:</label>
+        <input type="date" id="publishDate" th:field="*{publishDate}" />
+        <br/>
+        <label for="status">Status:</label>
+        <input type="text" id="status" th:field="*{status}" />
+        <br/>
+        <label for="banner">Banner:</label>
+        <input type="file" id="banner" th:field="*{banner}" />
+        <br/>
+        <label for="author">Author:</label>
+        <select id="author" th:field="*{author.id}">
+            <option value="" disabled>Select Author</option>
+            <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.name}"></option>
+        </select>
+        <br/>
+        <input type="submit" value="Update Record" />
+    </form>
+    <br/>
+    <a th:href="@{/records/list}">Back to Record List</a>
+</body>
+</html>

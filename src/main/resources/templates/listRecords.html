@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Record List</title>
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<a class="navbar-brand" href="#">MyKarsol</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+				aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+					<a  class="nav-item nav-link">Authors</a>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<br>
+	<div class="row">
+
+		<div class="container">
+			<h3 class="text-center">List of Records</h3>
+			<hr>
+			<div class="container text-left">
+				<a th:href="@{/records/add}" class="btn btn-success">Add New Record</a>
+				<a th:href="@{/records/add}" class="btn btn-success">Add New Author</a>
+			</div>
+			<br>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Title</th>
+						<th>Description</th>
+						<th>Publish Date</th>
+						<th>Status</th>
+						<th>Banner</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each=" record : ${records}">
+						<td th:text="${record.id}">ID</td>
+						<td th:text="${record.title}">Title</td>
+						<td th:text="${record.description}">Description</td>
+						<td th:text="${record.publishDate}">Publish Date</td>
+						<td th:text="${record.status}">Status</td>
+						<td>
+							<div th:if="${record.banner}">
+								<img th:src="@{/banners/{banner}(banner=${record.banner})}" alt="Banner" width="100" />
+							</div>
+						</td>
+						<!--	<td th:text="${record.author.name}">Author</td> -->
+						<td>
+							<a th:href="@{/records/edit/{id}(id=${record.id})}" class="btn btn-primary">Edit</a>
+							<a th:href="@{/records/delete/{id}(id=${record.id})}"
+								onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
